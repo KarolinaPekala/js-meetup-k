@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lesson 1: Gallery</title>
+
+    <style>
+        /*Internal styles */
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .gallery img {
+            width: calc(33.33% - 20px);
+            margin-bottom: 15px;
+            margin-right: 15px;
+            object-position: center;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .pagination number {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px solid #8e7777;
+            border-radius: 10px;
+            color: #170202;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gallery"></div>
+    <div class="pagination"></div>
+
+    <script>
+        const images = [
+            "img/landscape-001-small.jpg",
+            "img/landscape-002-small.jpg",
+            "img/landscape-003-small.jpg",
+            "img/landscape-004-small.jpg",
+            "img/landscape-005-small.jpg",
+            "img/landscape-006-small.jpg",
+            "img/landscape-007-small.jpg",
+            "img/landscape-008-small.jpg",
+            "img/landscape-009-small.jpg",
+            "img/landscape-010-small.jpg",
+            "img/landscape-011-small.jpg",
+            "img/landscape-012-small.jpg",
+            "img/landscape-013-small.jpg",
+            "img/landscape-014-small.jpg",
+            "img/landscape-015-small.jpg",
+            "img/landscape-016-small.jpg",
+            "img/landscape-017-small.jpg",
+            "img/landscape-018-small.jpg",
+            "img/landscape-019-small.jpg"
+        ];
+
+        const gallery = document.querySelector(".gallery")
+        const pagination = document.querySelector(".pagination")
+        const imagesPerPage = 6
+        let currentPage = 1
+
+        const totalNumberOfPages = Math.ceil(images.length / imagesPerPage)
+
+        for (let i = 1; i <= totalNumberOfPages; i++) {
+            const number = document.createElement("number")
+            number.innerText = i
+            number.onclick = function () {
+                showPage(i)
+            }
+            pagination.appendChild(number)
+        }
+
+        function showPage(pageNumber) {
+            currentPage = pageNumber
+            let startIndex = (pageNumber -1) * imagesPerPage
+            let endIndex = startIndex + imagesPerPage
+            if (endIndex > images.length) {
+                endIndex = images.length
+            }
+            gallery.innerHTML = ""
+            for (let i = startIndex; i < endIndex; i++) {
+                const img = document.createElement("img")
+                img.src = images[i]
+                gallery.appendChild(img)
+            }
+        }
+
+        showPage(1)
+
+    </script>
+</body>
+
+</html>
